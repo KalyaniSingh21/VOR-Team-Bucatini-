@@ -32,6 +32,24 @@ public class Radio {
 		return ID2;
 
         }
-        
+     	public String getSigQual(){
+		if(badCounter <= 0){
+			return "";
+		}
+		if(this.badCounter < 5){
+			this.badCounter--;
+			//System.out.println("bad counter = " + this.badCounter);
+			return "bad";
+		}
+		
+		Random rn4 = new Random();
+		int a = rn4.nextInt(3);
+		if(a == 0){
+			this.badCounter--;
+			//System.out.println("bad counter = " + this.badCounter);
+			return "bad";
+		}
+		return "";
+	}   
         
 }
