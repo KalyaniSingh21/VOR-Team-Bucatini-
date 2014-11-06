@@ -12,7 +12,7 @@ public class Radio {
 	int ID2 = seed + 321;
 	double startRad = 0;
         
- // Radio constructor
+ // Trial change
         
 	public Radio(int seed){
 		this.seed = seed;
