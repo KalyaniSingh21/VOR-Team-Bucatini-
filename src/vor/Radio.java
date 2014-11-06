@@ -12,6 +12,8 @@ public class Radio {
 	public Radio(int seed){
 		this.seed = seed;
 	}
+        
+        // Initial Radial
 	public double getRadial(){
 		double radial;
 		Random dice = new Random();
