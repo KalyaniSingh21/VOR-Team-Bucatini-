@@ -1,4 +1,8 @@
 
+/**
+ * Simulated Radio class.
+**/
+
 import java.util.Random;
 
 public class Radio {
@@ -8,10 +12,12 @@ public class Radio {
 	int ID2 = seed + 321;
 	double startRad = 0;
         
+ // Radio constructor
         
 	public Radio(int seed){
 		this.seed = seed;
 	}
+ // Deciding the initial radial
 	public double getRadial(){
 		double radial;
 		Random dice = new Random();
@@ -32,6 +38,9 @@ public class Radio {
 		return ID2;
 
         }
+        
+// Checking the quality of the signal
+        
      	public String getSigQual(){
 		if(badCounter <= 0){
 			return "";
