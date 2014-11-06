@@ -24,7 +24,7 @@ public class Radio {
 		}
 		return startRad + 360 - radial;
 	}
-	
+	// Initial ID
 	public int getID(){
 		Random rnd = new Random();
 		int a = rnd.nextInt(2);
