@@ -5,7 +5,8 @@
 
 import java.util.Random;
 
-public class Radio {
+public class Radio 
+{
 	int seed;
 	int badCounter = 5;
 	int ID1 = seed + 767;
