@@ -1,11 +1,12 @@
+//import VOR(Team Bucatini).default package;
+import java.lang.IllegalArgumentException;
 import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-
 /**
  *
  * @author Kalyani,Pritam
@@ -34,7 +35,7 @@ public class JUnitTest_Radio {
     /**
      * Test of getRadial method, of class Radio.
      */
-    @Test //(expected=)
+    @Test (expected=IllegalArgumentException.class)
     public void testGetRadial() {
         System.out.println("getRadial");
         Radio instance = new Radio(50);
@@ -58,7 +59,7 @@ public class JUnitTest_Radio {
     /**
      * Test of getID method, of class Radio.
      */
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testGetID() {
         System.out.println("getID");
         Radio instance = new Radio(70);
@@ -82,7 +83,7 @@ public class JUnitTest_Radio {
     /**
      * Test of getSigQual method, of class Radio.
     */ 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testGetSigQual() {
         System.out.println("getSigQual");
         Radio instance = new Radio(70);
