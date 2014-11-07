@@ -24,7 +24,8 @@ public class Radio
 		Random dice = new Random();
 		radial = dice.nextDouble() * 3.45;
 		int tick = dice.nextInt(2);
-		if(tick > 0){
+		if(tick > 0)
+                {
 			return startRad + radial;
 		}
 		return startRad + 360 - radial;
