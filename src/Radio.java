@@ -10,7 +10,6 @@ public class Radio
 	//BufferedReader buffer;
 	//int seed;      This variable will be used in accord with future requirements
 	double frequency;    // The frequency to which the plane is set to in the beginning(VOR station)
-	//String id;           // The OBS desired radial returned by the VOR station
 	double startRad = 0;
 	
 	// Radio constructor
@@ -53,7 +52,6 @@ public class Radio
                 
             }
         
-        
         }
     
         catch(NumberFormatException e)
@@ -64,17 +62,18 @@ public class Radio
         catch(Exception e)
         {
             System.out.println("Exception");
+        
         }
         
         
         //return MorseCode[0];
-            return null;
+        return null;
    
     }
  
     //private String[] ret;
 	
-	//Checking the quality of the signal
+    //Checking the quality of the signal
     public String getQual()
     {
     	Random rnd = new Random();
@@ -103,5 +102,3 @@ public class Radio
     	r.getRadial());
     } */
 }
-
-
