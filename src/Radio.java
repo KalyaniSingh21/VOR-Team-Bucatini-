@@ -8,13 +8,14 @@ import java.util.*;
 public class Radio 
 {
 	//BufferedReader buffer;
-	//int seed;      This variable will be used in accord with future requirements
+	int seed;           //This variable will be used in accord with future requirements
 	double frequency;    // The frequency to which the plane is set to in the beginning(VOR station)
 	double startRad = 0;
 	
 	// Radio constructor
-	public Radio(/*int seed */){
-	//	this.seed = seed;
+	public Radio(int seed)
+        {
+		this.seed = seed;
 	}
 	
 	// Deciding the initial radial

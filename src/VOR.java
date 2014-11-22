@@ -48,15 +48,22 @@ public class VOR
 	
 	public boolean isSignalGood() 
 	{
+                boolean sigQual;
 		int intercepted = radio.getRadial();
 		int arc = arc(desired, intercepted);
-		return (Math.abs(Math.abs(arc) - 90) > 1) && isOverStation();
+                
+                if(radio.getQual().equalsIgnoreCase("good"))
+                    sigQual = true;
+                else
+                    sigQual = false;
+                
+		return (((Math.abs(arc) - 90) > 1) && !isOverStation()) && sigQual;
 	}
 	
 	public boolean isGoingTo() 
 	{
 		int intercepted = radio.getRadial();
-		return Math.abs(arc(desired, intercepted)) > 90;
+		return (arc(desired, intercepted)) > 90;
 	}
 	
 	public static int normalizeAngle(int angle, int center) 
@@ -81,12 +88,12 @@ public class VOR
 	
 	private boolean isOverStation() 
 	{ 
-		Random rnd = new Random();
-    	int n = rnd.nextInt(20);
+            Random rnd = new Random();
+            int n = rnd.nextInt(20);
 		
-    	if(n == 0)
+            if(n == 0)
     	   	return true;
-    	else
+            else
     		return false;
 	} 
 	
