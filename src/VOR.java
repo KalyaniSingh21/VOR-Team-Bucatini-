@@ -25,7 +25,6 @@ public class VOR
 	
 	public int getCDI() 
 	{
-		intercepted = radio.getRadial();
 		arc = arc(desired, intercepted);
 		if (arc > 90) 
 		{
@@ -41,7 +40,6 @@ public class VOR
 	public boolean isSignalGood() 
 	{
                 boolean sigQual;
-		intercepted = radio.getRadial();
 		arc = arc(desired, intercepted);
                 
                 if(radio.getQual().equalsIgnoreCase("good"))
@@ -54,7 +52,6 @@ public class VOR
 	
 	public boolean isGoingTo() 
 	{
-		intercepted = radio.getRadial();
 		return (arc(desired, intercepted)) > 90;
 	}
 	
@@ -93,10 +90,10 @@ public class VOR
     {
     	VOR r = new VOR();
     	
-    	System.out.println(r.intercepted + ","
-                + r.getOBS(45) + ","
-                + r.getCDI() + ","
-                + r.isGoingTo() + ","
+    	System.out.println(r.intercepted + ", "
+                + r.getOBS(45) + ", "
+                + r.getCDI() + ", "
+                + r.isGoingTo() + ", "
                 + r.isSignalGood());
     	
     }
