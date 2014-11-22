@@ -6,27 +6,27 @@ import java.util.*;
 
 public class VOR 
 {
-	private Radio radio;
+	Radio radio;
 	
-	private int desired;
-
+        int desired, intercepted, arc;
+                
 	public VOR() 
 	{
 		radio = new Radio(0);
 		desired = 0;
+                intercepted = radio.getRadial();
 	}
 	
 	public int getOBS(int delta) 
 	{
             desired = normalizeAngle(desired + delta);
-            System.out.println("OBS" + desired);
             return desired;
         }
 	
 	public int getCDI() 
 	{
-		int intercepted = radio.getRadial();
-		int arc = arc(desired, intercepted);
+		intercepted = radio.getRadial();
+		arc = arc(desired, intercepted);
 		if (arc > 90) 
 		{
 			arc = 180 - arc;
@@ -41,8 +41,8 @@ public class VOR
 	public boolean isSignalGood() 
 	{
                 boolean sigQual;
-		int intercepted = radio.getRadial();
-		int arc = arc(desired, intercepted);
+		intercepted = radio.getRadial();
+		arc = arc(desired, intercepted);
                 
                 if(radio.getQual().equalsIgnoreCase("good"))
                     sigQual = true;
@@ -54,7 +54,7 @@ public class VOR
 	
 	public boolean isGoingTo() 
 	{
-		int intercepted = radio.getRadial();
+		intercepted = radio.getRadial();
 		return (arc(desired, intercepted)) > 90;
 	}
 	
@@ -93,10 +93,12 @@ public class VOR
     {
     	VOR r = new VOR();
     	
-    	r.getOBS(45);
-    	r.getCDI();
-    	r.isGoingTo();
-    	r.isSignalGood();
+    	System.out.println(r.intercepted + ","
+                + r.getOBS(45) + ","
+                + r.getCDI() + ","
+                + r.isGoingTo() + ","
+                + r.isSignalGood());
     	
     }
+    
 }

@@ -9,10 +9,8 @@ public class Radio
 {
     //BufferedReader buffer;
     int seed;          
-    int radial;
     double frequency;    // The frequency to which the plane is set to in the beginning(VOR station)
-    double startRad = 0;
-	
+    int radial;	
     // Radio constructor
     public Radio(int seed)
     {
@@ -22,10 +20,7 @@ public class Radio
 	// Deciding the initial radial
     public int getRadial()
     {
-    	int min = 0;
-    	int max = 359;
-    	
-    	radial = min + (int)(Math.random() * (max - min + 1));   
+    	radial = (int)(Math.random() * 360);   
     	return radial;
     }
 	
