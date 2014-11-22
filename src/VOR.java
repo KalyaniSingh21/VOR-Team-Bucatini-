@@ -1,12 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    VOR Calculations
  */
-/**
- *
- * @author Pritam
- */
+
 import java.util.*;
 
 public class VOR 
@@ -21,15 +16,12 @@ public class VOR
 		desired = 0;
 	}
 	
-	public void rotateOBS(int delta) 
+	public int getOBS(int delta) 
 	{
-		desired = normalizeAngle(desired + delta);
-	}
-	
-	public int getOBS() 
-	{
-		return desired;
-	}
+            desired = normalizeAngle(desired + delta);
+            System.out.println("OBS" + desired);
+            return desired;
+        }
 	
 	public int getCDI() 
 	{
@@ -101,7 +93,7 @@ public class VOR
     {
     	VOR r = new VOR();
     	
-    	r.rotateOBS(45);
+    	r.getOBS(45);
     	r.getCDI();
     	r.isGoingTo();
     	r.isSignalGood();
