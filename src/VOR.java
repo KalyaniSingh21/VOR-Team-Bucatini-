@@ -17,9 +17,13 @@ public class VOR
                 intercepted = radio.getRadial();
 	}
 	
-	public int getOBS(int delta) 
+        public void setOBS(int delta) 
 	{
             desired = normalizeAngle(desired + delta);
+        }
+        
+	public int getOBS() 
+	{
             return desired;
         }
 	
@@ -37,7 +41,7 @@ public class VOR
 		return clamp(arc, -10, 10);
 	}
 	
-	public boolean isSignalGood() 
+	public String isSignalGood() 
 	{
                 boolean sigQual;
 		arc = arc(desired, intercepted);
@@ -47,12 +51,18 @@ public class VOR
                 else
                     sigQual = false;
                 
-		return (((Math.abs(arc) - 90) > 1) && !isOverStation()) && sigQual;
+                if((((Math.abs(arc) - 90) > 1) && !isOverStation()) && sigQual)
+                    return "Good";
+                else
+                    return "Bad";
 	}
 	
-	public boolean isGoingTo() 
+	public String isGoingTo() 
 	{
-		return (arc(desired, intercepted)) > 90;
+                if((arc(desired, intercepted)) > 90)
+                    return "To";
+                else
+                    return "From";
 	}
 	
 	public static int normalizeAngle(int angle, int center) 
@@ -86,16 +96,4 @@ public class VOR
     		return false;
 	} 
 	
-    public static void main(String[] args) throws Exception
-    {
-    	VOR r = new VOR();
-    	
-    	System.out.println(r.intercepted + ", "
-                + r.getOBS(45) + ", "
-                + r.getCDI() + ", "
-                + r.isGoingTo() + ", "
-                + r.isSignalGood());
-    	
-    }
-    
 }

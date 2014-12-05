@@ -101,13 +101,32 @@ public class Interface extends JFrame implements ActionListener
 		
                 if(ae.getSource() == start)
                 {
+                    update();
 		}
 	}
+        
+        public void update()
+        {
+                VOR r = new VOR();
+            
+                r.setOBS(Integer.parseInt(tobs.getText()));
+            
+                tradial.setText(Integer.toString(r.intercepted));
+                ttofrom.setText(r.isGoingTo());
+                tbad.setText(r.isSignalGood());
+
+                System.out.println(r.intercepted + ", "
+                + r.getCDI() + ", "
+                + r.isGoingTo() + ", "
+                + r.isSignalGood());
+        
+        }
 		
 
 	public static void main(String [] args)  
 	{
-		Interface VOR = new Interface();
+		Interface inter = new Interface();    	
+    
 	}
 
 }
