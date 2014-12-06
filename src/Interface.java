@@ -129,7 +129,7 @@ public class Interface extends JFrame implements ActionListener
         
         public void initial()
         {   
-                radio.setFrequency(Double.parseDouble(tobs.getText()));
+                radio.setFrequency(Double.parseDouble(tfreq.getText()));
                 r.setOBS(Integer.parseInt(tobs.getText()));
             
                 update();
