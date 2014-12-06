@@ -20,28 +20,28 @@ public class Interface extends JFrame implements ActionListener
         
         JPanel panel = new JPanel();
 	
-        JLabel lfreq = new JLabel("Frequency");
+        JLabel lfreq = new JLabel("Frequency*");
         JTextField tfreq = new JTextField();
         
-        JLabel lid = new JLabel("ID");
-        JTextField tid = new JTextField();
-                
-        JLabel lobs = new JLabel("OBS");
+        JLabel lobs = new JLabel("OBS*");
         JTextField tobs = new JTextField();
         
+        JLabel lid = new JLabel("ID");
+        JLabel tid = new JLabel("");
+                
         JLabel lradial = new JLabel("Radial");
-        JTextField tradial = new JTextField();
+        JLabel tradial = new JLabel("");
         
         JLabel ltofrom = new JLabel("To/From");
-        JTextField ttofrom = new JTextField();
+        JLabel ttofrom = new JLabel("");
         
         JLabel lbad = new JLabel("Good/Bad");
-        JTextField tbad = new JTextField();
+        JLabel tbad = new JLabel("");
                 
 	JButton start = new JButton("Start");
 	JButton stop = new JButton("Stop");
-	JButton left = new JButton("Left");
-	JButton right = new JButton("Right");
+	JButton left = new JButton("OBS-");
+	JButton right = new JButton("OBS+");
         
 	public Interface() 
 	{
@@ -87,10 +87,10 @@ public class Interface extends JFrame implements ActionListener
                 
                 lfreq.setBounds(50,20,75,25);
 		tfreq.setBounds(150,20,75,25);
-		lid.setBounds(250,20,75,25);
-		tid.setBounds(350,20,75,25);
-                lobs.setBounds(50,50,75,25);
-		tobs.setBounds(150,50,75,25);
+		lobs.setBounds(250,20,75,25);
+		tobs.setBounds(350,20,75,25);
+                lid.setBounds(50,50,75,25);
+		tid.setBounds(150,50,75,25);
 		lradial.setBounds(250,50,75,25);
 		tradial.setBounds(350,50,75,25);
 		ltofrom.setBounds(50,80,75,25);
@@ -151,6 +151,10 @@ public class Interface extends JFrame implements ActionListener
         
         public void clear()
         {
+                global.needle = 0;
+                
+                cnt.repaint();
+                
                 tfreq.setText("");
                 tid.setText("");
                 tobs.setText("");
@@ -179,6 +183,7 @@ public class Interface extends JFrame implements ActionListener
                 System.out.println(global.ID + ", "
                 + global.obs + ", "
                 + global.inte + ", "
+                + global.needle + ", "
                 + global.dir + ", "
                 + global.qual);
             

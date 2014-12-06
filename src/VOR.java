@@ -74,7 +74,7 @@ public class VOR
 	
 	public static int arc(int x, int y) 
 	{
-		return normalizeAngle(y - x, 0);
+		return normalizeAngle(x - y, 0);
 	}
 	
 	private boolean isOverStation() 
