@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -12,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class VORTest {
+    private int arc;
     
     public VORTest() {
     }
@@ -33,30 +35,14 @@ public class VORTest {
     }
 
     /**
-     * Test of rotateOBS method, of class VOR.
+     * Test of getCDI method, of class VOR.
      */
-    @Test
-    public void testRotateOBS() {
-        System.out.println("rotateOBS");
-        int delta = 40;
-        VOR instance = new VOR();
-        int expected_result = instance.normalizeAngle(delta);
-        int actual_desired = instance.rotateOBS(delta);
-        assertEquals(expected_result, actual_desired);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    }
-
-    
     @Test
     public void testGetCDI() {
         System.out.println("getCDI");
         VOR instance = new VOR();
         int expResult = 0;
-        int desired = 0;
-        Radio radio=new Radio();
-        int intercepted = radio.getRadial();
-		int arc = instance.arc(desired, intercepted);
+        expResult = arc(instance.desired, instance.intercepted);
 		if (arc > 90) 
 		{
 			arc = 180 - arc;
@@ -65,7 +51,8 @@ public class VORTest {
 		{
 			arc = -180 - arc;
 		}
-                expResult=instance.clamp(arc, -10, 10);
+		else               
+                    testClamp(arc, -10, 10);
         int result = instance.getCDI();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
@@ -78,17 +65,19 @@ public class VORTest {
     @Test
     public void testIsSignalGood() {
         System.out.println("isSignalGood");
+        boolean badQual = false;
         VOR instance = new VOR();
-         int desired = 0;
-        Radio radio=new Radio();
-        boolean expResult = false;
-        int intercepted = radio.getRadial();
-	int arc = instance.arc(desired, intercepted);
-	expResult= (instance.isOverStation() && (Math.abs(Math.abs(arc) - 90) > 1));
-        String result = instance.isSignalGood();
+        String expResult = "";
+        arc = arc(instance.desired, instance.intercepted);
+                                
+                if(!badQual && (Math.abs(Math.abs(arc) - 90) > 1 && !(instance.isOverStation())))
+                    expResult= "Good";
+                else
+                    expResult= "Bad";
+        String result = instance.isSignalGood(badQual);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+       // fail("The test case is a prototype.");
     }
 
     /**
@@ -98,14 +87,12 @@ public class VORTest {
     public void testIsGoingTo() {
         System.out.println("isGoingTo");
         VOR instance = new VOR();
-         int desired = 0;
-        Radio radio=new Radio();
-        boolean expResult = false;
-        
-		int intercepted = radio.getRadial();
-		 expResult=Math.abs(instance.arc(desired, intercepted)) > 90;
+        String expResult = "";
+        if(Math.abs(arc(instance.desired, instance.intercepted)) > 90)
+                    expResult= "To";
+                else
+                    expResult= "From";
         String result = instance.isGoingTo();
-        
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
        // fail("The test case is a prototype.");
@@ -115,18 +102,15 @@ public class VORTest {
      * Test of normalizeAngle method, of class VOR.
      */
     @Test
-    public void testNormalizeAngle_int_int() {
+    public int testNormalizeAngle_int_int(int angle,int center) {
         System.out.println("normalizeAngle");
-        int angle = 0;
-        int center = 0;
-        int expResult = 0;
-         int desired = 0;
-        Radio radio=new Radio();
-        expResult= angle - 360 * (int)Math.floor((angle + 180 - center) / 360.0);
+        angle = 80;
+        center = 70;
+        int expResult = angle - 360 * (int)Math.floor((angle + 180 - center) / 360.0);
         int result = VOR.normalizeAngle(angle, center);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        return expResult;
+        
     }
 
     /**
@@ -136,45 +120,32 @@ public class VORTest {
     public void testNormalizeAngle_int() {
         System.out.println("normalizeAngle");
         int angle = 0;
-        int expResult = 0;
-        expResult= VOR.normalizeAngle(angle, 180);
+        int expResult;
+        expResult = testNormalizeAngle_int_int(angle, 180);
         int result = VOR.normalizeAngle(angle);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+       
     }
 
     /**
      * Test of clamp method, of class VOR.
      */
     @Test
-    public void testClamp() {
+    public void testClamp(int val,int low,int high) {
         System.out.println("clamp");
-        int val = 0;
-        int low = 0;
-        int high = 0;
-        int expResult = 0;
-        expResult= Math.max(low, Math.min(high, val));
+        val = 20;
+        low = 10;
+        high = 30;
+        int expResult = Math.max(low, Math.min(high, val));
         int result = VOR.clamp(val, low, high);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of arc method, of class VOR.
-     */
-    @Test
-    public void testArc() {
-        System.out.println("arc");
-        int x = 0;
-        int y = 0;
-        int expResult = 0;
-        expResult= VOR.normalizeAngle(y - x, 0);
-        int result = VOR.arc(x, y);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
 
+    public int arc(int x, int y) 
+    {
+         return testNormalizeAngle_int_int(x - y, 0);
+    }
+    
 }

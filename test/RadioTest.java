@@ -11,10 +11,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Kalyani
- */
 public class RadioTest {
     
     public RadioTest() {
@@ -65,4 +61,3 @@ public class RadioTest {
 
     
 }
-s
