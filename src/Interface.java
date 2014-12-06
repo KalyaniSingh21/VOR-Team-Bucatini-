@@ -15,8 +15,7 @@ public class Interface extends JFrame implements ActionListener
         Radio radio = new Radio(0);
                 
         VOR r = new VOR(radio.getRadial());
-            
-        
+      
 	Color white = new Color(255,255,255);
         
         JPanel panel = new JPanel();
@@ -48,9 +47,9 @@ public class Interface extends JFrame implements ActionListener
 	{
                 super("VOR"); 
 		
-       		cnt.setLayout(null);
+       		cnt.setLayout(new BorderLayout());
                 cnt.setBackground(white);
-		setSize(500,500);
+		setSize(500,700);
                 setVisible(true);  
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
@@ -58,9 +57,11 @@ public class Interface extends JFrame implements ActionListener
 		panel.setBackground(white);
 		panel.setEnabled(true);
 		panel.setVisible(true);
-                        
+                 
+                cnt.add(new meter(),BorderLayout.PAGE_START);
+                
                 cnt.add(panel);
-                panel.setBounds(0,300,500,200);
+                panel.setBounds(0,500,500,200);
 		
                 panel.add(lfreq);
 		panel.add(tfreq);
@@ -160,16 +161,26 @@ public class Interface extends JFrame implements ActionListener
         
         public void update()
         {
-                tid.setText(radio.getMorseCode());
-                tobs.setText(Integer.toString(r.getOBS()));
-                tradial.setText(Integer.toString(r.intercepted));
-                ttofrom.setText(r.isGoingTo());
-                tbad.setText(r.isSignalGood(radio.badSigQual()));
+                global.ID = radio.getMorseCode();
+                global.obs = r.getOBS();
+                global.inte = r.intercepted;
+                global.needle = r.getCDI();
+                global.dir = r.isGoingTo();
+                global.qual = r.isSignalGood(radio.badSigQual());
+                               
+                cnt.repaint();
+                 
+                tid.setText(global.ID);
+                tobs.setText(Integer.toString(global.obs));
+                tradial.setText(Integer.toString(global.inte));
+                ttofrom.setText(global.dir);
+                tbad.setText(global.qual);
 
-                System.out.println(r.intercepted + ", "
-                + r.getCDI() + ", "
-                + r.isGoingTo() + ", "
-                + r.isSignalGood(radio.badSigQual()));
+                System.out.println(global.ID + ", "
+                + global.obs + ", "
+                + global.inte + ", "
+                + global.dir + ", "
+                + global.qual);
             
         }
 	
@@ -181,4 +192,65 @@ public class Interface extends JFrame implements ActionListener
                 
 	}
 
+}
+
+class meter extends JPanel
+{
+	public meter()
+        {
+		setBorder(BorderFactory.createLineBorder(Color.blue));
+	}
+
+        public Dimension getPreferredSize() 
+        {
+            return new Dimension(500,500);
+        }
+		
+        public void paintComponent(Graphics g)
+        {
+		super.paintComponent(g);
+		g.drawOval(100, 100, 300, 300); 
+	
+                for(int x = 150; x <= 350; x+= 20){
+			if(x == 250){
+				g.drawLine(x, 250- 10, x, 250 + 10); //make the center line longer
+			}
+			else{
+				g.drawLine(x, 250 - 5, x, 250 + 5);
+			}
+		}
+		
+                g.drawLine(90,250,110,250);
+		g.drawLine(250,90,250,110);
+		g.drawLine(250,390,250,410);
+		g.drawLine(390,250,410,250);
+		/*
+		if(global.dir.equals("TO")){
+			g.drawString("TO", 280, 170);
+			
+			g.drawString("Signal: GOOD", 250, 450);
+		}
+		if(global.dir.equals("FROM")){
+			g.drawString("FR", 280, 260);
+			
+			g.drawString("Signal: GOOD", 250, 450);
+		}
+		
+		g.drawString("Station ID: " + global.ID, 100, 450);
+		*/
+		g.drawLine(250 + (int)(10 * global.needle), 250 + 50, 250 + (int)(10 * global.needle), 250-50);
+		
+		
+	}
+	
+}
+
+class global
+{
+        public static String ID = "";
+	public static int obs = 0;
+        public static int inte = 0;
+	public static int needle = 0;
+	public static String dir = "";
+	public static String qual = "";	
 }
