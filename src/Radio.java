@@ -7,34 +7,34 @@ import java.util.*;
 
 public class Radio 
 {
-    //BufferedReader buffer;
     int seed;          
-    double frequency;    // The frequency to which the plane is set to in the beginning(VOR station)
+    double frequency;
     int radial;	
+    
     // Radio constructor
     public Radio(int seed)
     {
 	this.seed = seed;
+    
     }
 	
-	// Deciding the initial radial
+    // Deciding the initial radial
     public int getRadial()
     {
     	radial = (int)(Math.random() * 360);   
     	return radial;
+    
     }
 	
-    //Get Station ID
-    //@SuppressWarnings("empty-statement")
-       
-    @SuppressWarnings("empty-statement")
-    
+    //Sets the frequency
     public void setFrequency(double frequency)
     {
         this.frequency = frequency;
+    
     }
     
-    public String getMorseCode()  // Initially getID
+    //Returns Morsecode (Staion ID) corresponding to the frequency    
+    public String getMorseCode()
     {    
         double[] freq_arr = {115.4,113.5,114.8,113.9,116.1,117.7,
                                         115.1,112.3,113.3,116.9,112.1};
@@ -53,8 +53,7 @@ public class Radio
    
     }
  
-    //private String[] ret;
-	
+    
     //Checking the quality of the signal
     public boolean badSigQual()
     {
@@ -64,11 +63,13 @@ public class Radio
     	if(n==1 || n == 6 || n == 8)
         {
     	    return true;
-	}
+
+        }
 		
 	else
         {
     	    return false;
-	} 
+	
+        } 
     }
 }

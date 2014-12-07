@@ -13,7 +13,6 @@ public class Interface extends JFrame implements ActionListener
 	Container cnt= getContentPane();
 
         Radio radio = new Radio(0);
-                
         VOR r = new VOR(radio.getRadial());
       
 	Color white = new Color(255,255,255);
@@ -101,7 +100,6 @@ public class Interface extends JFrame implements ActionListener
 		right.setBounds(150,110,75,25);
 		start.setBounds(250,110,75,25);
 		stop.setBounds(350,110,75,25);
-    
 	}
         
         public void actionPerformed(ActionEvent ae) 
@@ -127,29 +125,26 @@ public class Interface extends JFrame implements ActionListener
 		}
 	}
         
-        public void initial()
+        public void initial() //Initializes all the values at start
         {   
                 radio.setFrequency(Double.parseDouble(tfreq.getText()));
                 r.setOBS(Integer.parseInt(tobs.getText()));
-            
                 update();
         }
         
-        public void left()
+        public void left() //Decreases OBS value by 1
         {
                 r.setOBS(Integer.parseInt(tobs.getText())-1);
- 
                 update();
         }
         
-        public void right()
+        public void right() //Increases OBS value by 1
         {           
                 r.setOBS(Integer.parseInt(tobs.getText())+1);
- 
                 update();
         }
         
-        public void clear()
+        public void clear() //To clear all the fields
         {
                 global.needle = 0;
                 
@@ -163,7 +158,7 @@ public class Interface extends JFrame implements ActionListener
                 tbad.setText("");
         }
         
-        public void update()
+        public void update() //updates the variables from global and sets the JLabel values
         {
                 global.ID = radio.getMorseCode();
                 global.obs = r.getOBS();
@@ -185,20 +180,16 @@ public class Interface extends JFrame implements ActionListener
                 + global.inte + ", "
                 + global.needle + ", "
                 + global.dir + ", "
-                + global.qual);
-            
+                + global.qual);   
         }
-	
 
 	public static void main(String [] args)  
 	{
 		Interface inter = new Interface();    	
-    
-                
 	}
-
 }
 
+//To draw meter
 class meter extends JPanel
 {
 	public meter()
@@ -214,42 +205,32 @@ class meter extends JPanel
         public void paintComponent(Graphics g)
         {
 		super.paintComponent(g);
-		g.drawOval(100, 100, 300, 300); 
+		g.drawOval(100, 100, 300, 300); //To draw the circle
 	
-                for(int x = 150; x <= 350; x+= 20){
-			if(x == 250){
+                for(int x = 150; x <= 350; x+= 20) //Draws lines of the scale
+                {
+			if(x == 250)
+                        {
 				g.drawLine(x, 250- 10, x, 250 + 10); //make the center line longer
 			}
-			else{
+			else
+                        {
 				g.drawLine(x, 250 - 5, x, 250 + 5);
 			}
 		}
 		
+                //Lines on the oval
                 g.drawLine(90,250,110,250);
 		g.drawLine(250,90,250,110);
 		g.drawLine(250,390,250,410);
 		g.drawLine(390,250,410,250);
-		/*
-		if(global.dir.equals("TO")){
-			g.drawString("TO", 280, 170);
-			
-			g.drawString("Signal: GOOD", 250, 450);
-		}
-		if(global.dir.equals("FROM")){
-			g.drawString("FR", 280, 260);
-			
-			g.drawString("Signal: GOOD", 250, 450);
-		}
-		
-		g.drawString("Station ID: " + global.ID, 100, 450);
-		*/
-		g.drawLine(250 + (int)(10 * global.needle), 250 + 50, 250 + (int)(10 * global.needle), 250-50);
-		
-		
-	}
-	
+                
+                //To draw the deflection needle
+                g.drawLine(250 + (int)(10 * global.needle), 250 + 50, 250 + (int)(10 * global.needle), 250-50);
+	}	
 }
 
+//Global variables to store values
 class global
 {
         public static String ID = "";
